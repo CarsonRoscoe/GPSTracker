@@ -46,4 +46,8 @@ class Clients extends MY_Model {
         $res = $this->some('username', $username);
         return array($res[0]->firstname, $res[0]->lastname);
     }
+    
+    function generateHexValueByName($username) {
+        return '#'.substr(dechex(abs(crc32($username))), 0, 6);
+    }
 }

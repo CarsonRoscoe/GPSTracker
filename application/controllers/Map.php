@@ -41,37 +41,58 @@ class Map extends Application {
     
     function loadMap($name) {
         if ($name != null) {
-            $coordinates = $this->coordinates->getLatestPosition($name);
-            $latitude = $coordinates[0]->latitude;
-            $longitude = $coordinates[0]->longitude;
+            $coordinates = $this->coordinates->getLatestPositions($name);
+            $lastindex = count($coordinates)-1;
+            $latitude = $coordinates[$lastindex]->latitude;
+            $longitude = $coordinates[$lastindex]->longitude;
             $config['center'] = $latitude.', '.$longitude;
             $config['zoom'] = 8;
             $this->googlemaps->initialize($config);
-
             $marker = array();
-            $marker['position'] = $latitude.', '.$longitude;
+            $marker['position'] = $coordinates[$lastindex]->latitude.', '.$coordinates[$lastindex]->longitude;
             $this->googlemaps->add_marker($marker);
 
+            $polyline = array();
+            $polyline['points'] = array();
+            $polyline['strokeColor'] = $this->clients->generateHexValueByName($name);
+            
+            foreach($coordinates as $coordinate) {
+                array_push($polyline['points'], $coordinate->latitude.', '.$coordinate->longitude);
+            }
+
+            $this->googlemaps->add_polyline($polyline);
             $data['map'] = $this->googlemaps->create_map();
 
             $this->data['content'] = $this->load->view('view_file', $data, true);
         } else {
             $names = $this->clients->getClients();
-            $coordinates = $this->coordinates->getLatestPosition($this->session->userdata('logged_in')['username']);
-            $latitude = $coordinates[0]->latitude;
-            $longitude = $coordinates[0]->longitude;
+            $coordinates = $this->coordinates->getLatestPositions($this->session->userdata('logged_in')['username']);
+            $lastindex = count($coordinates)-1;
+            $latitude = $coordinates[$lastindex]->latitude;
+            $longitude = $coordinates[$lastindex]->longitude;
             $config['center'] = $latitude.', '.$longitude;
             $config['zoom'] = 7;
             $this->googlemaps->initialize($config);
             
             foreach($names as $localname) {
-                $localcoordinates = $this->coordinates->getLatestPosition($localname[0]);
-                $locallatitude = $localcoordinates[0]->latitude;
-                $locallongitude = $localcoordinates[0]->longitude;
+                $localcoordinates = $this->coordinates->getLatestPositions($localname[0]);
+                $lastindexlocal = count($localcoordinates)-1;
+                $locallatitude = $localcoordinates[$lastindexlocal]->latitude;
+                $locallongitude = $localcoordinates[$lastindexlocal]->longitude;
                 
                 $marker = array();
                 $marker['position'] = $locallatitude.', '.$locallongitude;
                 $this->googlemaps->add_marker($marker);
+                
+                $polyline = array();
+                $polyline['points'] = array();
+                $polyline['strokeColor'] = $this->clients->generateHexValueByName($localname[0]);
+
+                foreach($localcoordinates as $coordinate) {
+                    array_push($polyline['points'], $coordinate->latitude.', '.$coordinate->longitude);
+                }
+
+                $this->googlemaps->add_polyline($polyline);
             }
 
             $data['map'] = $this->googlemaps->create_map();

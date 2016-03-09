@@ -24,7 +24,7 @@ class Coordinates extends MY_Model {
      * @param type $name name of stock
      * @return array containing movement data
      */
-    function getLatestPosition($name) {
+    function getLatestPositions($name) {
         return $this->db->get_where('clientposition', array('username =' => $name))->result();
         /*$this->db->from('clientposition');
         $this->db->order_by("datetime", "asc");
