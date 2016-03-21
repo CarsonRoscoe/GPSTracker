@@ -1,24 +1,48 @@
 <?php
 
-/**
- * controllers/Login.php
- *
- * Login controller
- *
- * @author				Dhivya Manohar
- * @copyright			2016-, Special Characters
- * ------------------------------------------------------------------------
- */
-
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+/**-----------------------------------------------------------------------
+ * SOURCE FILE: controllers/Login.php
+ *  
+ * PROGRAM: GPSTracker
+ * 
+ * CLASS: Login
+ * 
+ * METHODS:
+ * void loginAttempt()
+ * bool queryLogin(username, password)
+ * bool setNavBarLogin(username, password)
+ * void setNavBarLogout()
+ * 
+ * DATE: March 10th, 2016
+ * 
+ * REVISIONS: March 20th, 2016: Commented
+ *
+ * @programmer: Carson Roscoe
+ * 
+ * @designer: Carson Roscoe
+ * 
+ * NOTES: Controller used to handling logging in and logging out.
+ * ----------------------------------------------------------------------*/
 class Login extends Application {     
 
-    /**
-     * Attempt to login
-     * @param type $username user input 
-     * @param type $password user input
-     */
+    /**-------------------------------------------------------------------
+     * METHOD: loginAttempt
+     * 
+     * INTERFACE: void loginAttempt(void)
+     * 
+     * DATE: March 10th, 2016
+     * 
+     * REVISIONS: March 20th, 2016: Commented
+     *
+     * @programmer: Carson Roscoe
+     * 
+     * @designer: Carson Roscoe
+     * 
+     * NOTES: Gathers the username and password via POST and checks if
+     * we can successfully login. If we can't alerts the user so and refuses
+     * to let the user log in.
+     -------------------------------------------------------------------*/
     public function loginAttempt() {        
         //if able to get username
         if (isset($_POST['username']) && isset($_POST['password'])) {
@@ -32,13 +56,24 @@ class Login extends Application {
         }
     }
     
-    /**
-     * Check login data against database
-     * @param type $username user name to query
-     * @param type $password password to query
-     * @return boolean return false if unable to find a row that matches
-     *          description
-     */
+    /**-------------------------------------------------------------------
+     * METHOD: queryLogin
+     * 
+     * INTERFACE: bool/result queryLogin(username, password)
+     * 
+     * DATE: March 10th, 2016
+     * 
+     * REVISIONS: March 20th, 2016: Commented
+     *
+     * @programmer: Carson Roscoe
+     * 
+     * @designer: Carson Roscoe
+     * 
+     * NOTES: Takes in a username and password. It then checks in the
+     * database if there is a username & password combination that is valid.
+     * If there is no valid combination, it returns false. If there is one,
+     * it returns that result.
+     -------------------------------------------------------------------*/
     public function queryLogin($username, $password) {
         //database query
         $this -> db -> select('username, firstname, password');
@@ -56,12 +91,24 @@ class Login extends Application {
         }
    }
    
-    /**
-     * Setting the session variable according to conditions
-     * @param type $username user name 
-     * @param type $password password
-     * @return boolean return false if not logged in
-     */
+    /**-------------------------------------------------------------------
+     * METHOD: setNavBarLogin
+     * 
+     * INTERFACE: bool setNavBarLogin(username, password)
+     * 
+     * DATE: March 10th, 2016
+     * 
+     * REVISIONS: March 20th, 2016: Commented
+     *
+     * @programmer: Carson Roscoe
+     * 
+     * @designer: Carson Roscoe
+     * 
+     * NOTES: With a given username and password it calls queryLogin to
+     * see if there is valid data. If there is valid data, it populates
+     * the view with such and refreshes the page to the /map route, and 
+     * then returns true. If it was not a valid login, it returns false.
+     -------------------------------------------------------------------*/
     public function setNavBarLogin($username,$password){
         $result = $this->queryLogin($username,$password);
 
@@ -83,9 +130,21 @@ class Login extends Application {
         }
     }
     
-    /**
-     * Logout function (clears session variable)
-     */
+    /**-------------------------------------------------------------------
+     * METHOD: setNavBarLogout
+     * 
+     * INTERFACE: void setNavBarLogout(void)
+     * 
+     * DATE: March 10th, 2016
+     * 
+     * REVISIONS: March 20th, 2016: Commented
+     *
+     * @programmer: Carson Roscoe
+     * 
+     * @designer: Carson Roscoe
+     * 
+     * NOTES: Logs out the user and refreshes the page
+     -------------------------------------------------------------------*/
     public function setNavBarLogout() {
         $this->session->unset_userdata('logged_in');
         session_destroy();

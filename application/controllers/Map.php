@@ -1,20 +1,46 @@
 <?php
 
-/**
- * controllers/Portfolio.php
+/**-----------------------------------------------------------------------
+ * SOURCE FILE: controllers/Map.php
+ *  
+ * PROGRAM: GPSTracker
+ * 
+ * CLASS: Map
+ * 
+ * METHODS:
+ * void index(username defaulted to null)
+ * void loadMap(username)
+ * 
+ * DATE: March 10th, 2016
+ * 
+ * REVISIONS: March 20th, 2016: Commented
  *
- * Portfolio controller
- *
- * @author				Carson Roscoe, Jaegar Sarauer
- * @copyright			2016-, Special Characters
- * ------------------------------------------------------------------------
- */
+ * @programmer				Carson Roscoe
+ * 
+ * @designer                            Carson Roscoe
+ * 
+ * NOTES: Controller used for drawing the map page
+ * ----------------------------------------------------------------------*/
 
 class Map extends Application {
 
-    /**
-     * Index Page for this controller.
-     */
+    /**-------------------------------------------------------------------
+     * METHOD: index
+     * 
+     * INTERFACE: void index(username (optional))
+     * 
+     * DATE: March 10th, 2016
+     * 
+     * REVISIONS: March 20th, 2016: Commented
+     *
+     * @programmer: Carson Roscoe
+     * 
+     * @designer: Carson Roscoe
+     * 
+     * NOTES: When routing to the website.com/map page, this controller's
+     * index method will take over. This method will handle generating the
+     * page and displaying the map data for a given username(s)
+     -------------------------------------------------------------------*/
     public function index($name = null) { 
         $loggedName = $this->session->userdata('logged_in')['username'];
         if ($loggedName === NULL) {
@@ -39,6 +65,22 @@ class Map extends Application {
         $this->render();
     }
     
+    /**-------------------------------------------------------------------
+     * METHOD: loadMap
+     * 
+     * INTERFACE: void loadmap(username)
+     * 
+     * DATE: March 10th, 2016
+     * 
+     * REVISIONS: March 20th, 2016: Commented
+     *
+     * @programmer: Carson Roscoe
+     * 
+     * @designer: Carson Roscoe
+     * 
+     * NOTES: Handles the Google Maps API calls and drawing a map
+     * based on a given username.
+     -------------------------------------------------------------------*/
     function loadMap($name) {
         if ($name != null) {
             $coordinates = $this->coordinates->getLatestPositions($name);
