@@ -1,8 +1,63 @@
+# ignore for DB password protection
+/application/config/database.php
+
+# Created by https://www.gitignore.io/api/codeigniter,windows,linux,sublimetext
+
+### CodeIgniter ###
 */config/development
 */logs/log-*.php
-*/logs/!index.html
+!*/logs/index.html
 */cache/*
-*/cache/!index.html
-*/cache/!.htaccess
-/nbproject/private/
-/nbproject/
+!*/cache/index.html
+!*/cache/.htaccess
+
+
+### Windows ###
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# Windows shortcuts
+*.lnk
+
+
+### Linux ###
+*~
+
+# temporary files which can be created if a process still has a handle open of a deleted file
+.fuse_hidden*
+
+# KDE directory preferences
+.directory
+
+# Linux trash folder which might appear on any partition or disk
+.Trash-*
+
+
+### SublimeText ###
+# cache files for sublime text
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+
+# workspace files are user-specific
+*.sublime-workspace
+
+# project files should be checked into the repository, unless a significant
+# proportion of contributors will probably not be using SublimeText
+# *.sublime-project
+
+# sftp configuration file
+sftp-config.json
