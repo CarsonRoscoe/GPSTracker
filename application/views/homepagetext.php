@@ -1,3 +1,16 @@
+<!--
+FILE: homepagetxt.php
+ 
+DATE: March 10th, 2016
+ 
+REVISIONS: March 20th, 2016: Commented
+
+@programmer: Carson Roscoe
+
+@designer: Carson Roscoe
+ 
+NOTES: Home page HTML text to be drawn
+-->
 <h2>Welcome to GPSTracker,</h2>
 <p>GPSTracker is a mobile social local solution for mobile users everywhere.</p>
 

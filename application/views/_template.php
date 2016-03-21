@@ -1,5 +1,18 @@
+<!--
+FILE: _template.php
+ 
+DATE: March 10th, 2016
+ 
+REVISIONS: March 20th, 2016: Commented
+
+@programmer: Carson Roscoe
+
+@designer: Carson Roscoe
+ 
+NOTES: Our websites template. Every single page uses this as their packet.
+The {tag}'s will be replaced with generated HTML from the proper controller.
+-->
 <!DOCTYPE html>
-<!-- Template for pages -->
 <html>
 	<head>
 		<title id="pageTitle">{pagetitle}</title>
