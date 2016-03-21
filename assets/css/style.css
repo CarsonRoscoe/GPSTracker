@@ -1,148 +1,21 @@
-body{
-    background-color:#5B2600;
-    color:#333333;
-    font-family:Calibri;
-    margin:0;
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
 }
 
-#header{
-    width:100vw;
+main {
+    flex: 1 0 auto;
 }
 
-#header h1{
-    color:white;
-    text-shadow: 1px 1px 1px #ccc;
-    margin-left: 20px;
+.icon-block {
+    padding: 0 15px;
 }
 
-#content h1 {
-    color:#5B2600;
-    text-align:center;
+.icon-block .material-icons {
+    font-size: inherit;
 }
 
-a{
-    text-decoration:none;
-    color:white;
-}
-
-a:link,a:visited{
-    color:#1B7FCC;
-}
-
-a:hover{
-    text-decoration:underline;
-}
-
-a:active{
-    color:black;
-    background-color:black;
-}
-
-#navigation ul{
-    list-style-type:none;
-    padding-left:20px;
-    padding-top:10px;
-}
-
-#navigation li{
-    padding:5px 5px 5px 25px;
-    width:150px;
-}
-
-#navigation li:hover,#currentpage,#navigation a:active{
-    background-color:#F8DFCE;
-    color:black;
-}
-
-#navigation a{
-    color:inherit;
-    text-decoration:none;
-}
-
-#content{
-    padding:0px 20px 0px 20px;
-    margin-left:208px;
-    margin-bottom:10px;
-    height:auto;
-    position:absolute;
-    left:10px;
-    right:10px;
-    top:0px;
-    bottom:0px;
-    background-color:white;
-}
-
-#content p{
-    margin-left:20px;
-}
-
-#content dl{
-    margin-left:50px;
-}
-
-#titleTable {
-    width:100%;
-    height:auto;
-}
-
-#contentDiv {
-    border-top: solid #A96433;
-    padding-bottom: 20px;
-    padding-right:20px;
-    padding-left:20px;
-    margin-top:1%;
-    background-color:#F8DFCE;
-    margin-left:1%;
-}
-
-#loginDiv {
-    border: solid #A96433;
-    float:left;
-    background-color: #F8DFCE;
-    margin-left:1.5%;
-    width: 12%;
-}
-
-#pageSelection {
-    padding-top:8%;
-}
-
-#loginForm {
-    margin:5%;
-}
-
-#clickable {
-    color: #050505;
-    font-weight:bold;
-}
-
-input {
-    margin-top: 2px;
-    margin-bottom: 2px;
-    background-color: #9D7051;
-    border-color: #9D7051;
-    width:98%;
-}
-
-h1, h2, h3, h4, h5, h6 {
-    font-family: Raleway, Georgia, Times, serif;
-}
-
-h3{
-    text-decoration: underline;
-}
-p, div {
-    font-family: 'Nobile', Helvetica, Arial, sans-serif;
-}
-
-tr{
-    text-align: left;
-}
-tr:nth-child(even) {
-    background-color: #d3d3d3;
-    
-}
-
-li {
-    color:white;
+.page-footer {
+    margin: 0 !important;
 }

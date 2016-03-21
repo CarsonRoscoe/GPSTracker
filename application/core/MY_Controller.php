@@ -25,6 +25,7 @@ class Application extends CI_Controller {
         $this->data = array();
         $this->data['pagetitle'] = "GPSTracker";
         $this->data['pageheader'] = "GPSTracker";
+        $this->load->library('parser');
     }
 
     /**
@@ -33,22 +34,25 @@ class Application extends CI_Controller {
      */
     function render() {
         $this->data['data'] = &$this->data;
+
+        $this->data['content'] = $this->parser->parse($this->data['pagebody'], $this->data, true);
+
         $this->parser->parse('_template', $this->data);
     }
-    
+
     /**
      * Parsing query fom database
      * @param type $queryData data received from database
-     * @param type $ignoreIndex 
+     * @param type $ignoreIndex
      * @return string parsed data
      */
     function parseQuery($queryData, $ignoreIndex = -1) {
             $res = '';
-            
+
             if ($queryData == NULL) {
                 return '';
             }
-            
+
             foreach($queryData as $queryIndex) {
                 $res .= '<tr>';
                 for ($index = 0; $index < count($queryIndex); $index++) {
@@ -60,14 +64,14 @@ class Application extends CI_Controller {
             }
             return $res;
     }
-    
+
         function parseQueryClickable($queryData, $linkto, $IgnoreIndex = 0) {
             $res = '';
-            
+
             if ($queryData == NULL) {
                 return '';
             }
-            
+
             foreach($queryData as $queryIndex) {
                 $res .= '<tr>';
                 for ($index = $IgnoreIndex; $index < count($queryIndex); $index++) {
@@ -82,7 +86,7 @@ class Application extends CI_Controller {
             }
             return $res;
     }
-    
+
     /**
      * Creates the dynamic navigation bar
      * @param type $page which controller you're in
@@ -101,7 +105,7 @@ class Application extends CI_Controller {
                 <br>
                 <br>
                 <input type="submit" value="Logout">
-            </form>';  
+            </form>';
         } else {
             $result .= '<form id="loginForm" method="post"action="/login">
                 Username:<br>
@@ -111,17 +115,17 @@ class Application extends CI_Controller {
                 <input type="submit" value="Login">
             </form>';
         }
-        
+
         $result .= '</div><div id="pageSelection"><ul>';
-        
+
         $result .= '<li><a href="/">Homepage</a></li>
                     <li><a href="/map">Map</a></li>';
 
         $result .= '</ul></div>';
-        
+
         return $result;
     }
-    
+
     /**
      * Creates a dynamic dropdown list
      * @param type $dropdowndata
@@ -130,19 +134,19 @@ class Application extends CI_Controller {
      */
     function createDropDown($dropdowndata = null, $pagename = null) {
         $URI = "$_SERVER[REQUEST_URI]"; //reloading page
-        
+
         //error check URI is right
         if (strlen($URI) > 1) {
             $arr = explode('/', $URI);
             $URI = $arr[0].'/'.$arr[1];
         }
-        
+
         $URI.='/';
-        
+
         //populates the dropdown & if you change the item it will reload page
         $result = '<select onchange="window.location=\''."http://$_SERVER[HTTP_HOST]$URI".'\' + this.value;">';
         $result .= '<option value="all">All</option>';
-        
+
         $myname = $this->session->userdata('logged_in')['username'];
         if ($pagename != $myname) {
             $result .= '<option value="'.$myname.'">'.'Myself'.'</option>';
@@ -160,7 +164,7 @@ class Application extends CI_Controller {
         $result .= '</select>';
         return $result;
     }
-    
+
     /**
      * Creates tables for page to hold content
      * @param type $columnNames name of columns

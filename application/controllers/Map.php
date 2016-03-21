@@ -42,6 +42,9 @@ class Map extends Application {
      * page and displaying the map data for a given username(s)
      -------------------------------------------------------------------*/
     public function index($name = null) {
+
+        $this->data['pagebody'] = 'view_file';
+
         $loggedName = $this->session->userdata('logged_in')['username'];
         if ($loggedName === NULL) {
             //handle nobody logged in and no profile username request
@@ -58,10 +61,36 @@ class Map extends Application {
             $fullName = $this->clients->getClientNamesByUsername($name);
             $this->data['contentTitle'] = 'Viewing '.$fullName[0].' '.$fullName[1].'\'s GPS Data';
         }
-        //$fullName = $this->players->getPlayerNamesByUsername($realName); //query players
 
         $this->loadMap($name);
+        $this->loadTable($name);
+
         $this->render();
+    }
+
+    function loadTable($name) {
+        if ($name != null) {
+            $this->load->library('table');
+            $clientPositions = $this->clients->getPositionsOfUser($name);
+            $this->data['postable'] = $this->generateTable($clientPositions);
+        } else {
+            $this->load->library('table');
+            $clientPositions = $this->clients->getPositions();
+            $this->data['postable'] = $this->generateTable($clientPositions);
+        }
+    }
+
+    function generateTable($user) {
+        //sets the table style
+        $template = array('table_open' => '<table class="highlight">');
+        $this->table->set_template($template);
+        $this->table->set_heading('User', 'Time', 'IP', 'Device', 'Latitude', 'Longitude');
+
+        foreach ($user as $row) {
+            $this->table->add_row($row);
+        }
+
+        return $this->table->generate();
     }
 
     /**-------------------------------------------------------------------
