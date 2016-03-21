@@ -1,16 +1,27 @@
 <?php
 
-/**
- * model/Players.php
+/**-----------------------------------------------------------------------
+ * SOURCE FILE: controllers/Clients.php
+ *  
+ * PROGRAM: GPSTracker
+ * 
+ * CLASS: Clients
+ * 
+ * METHODS:
+ * queryResult getClients()
+ * queryResult getClientByUsername(username)
+ * string generateHexValueByName(username)
+ * 
+ * DATE: March 10th, 2016
+ * 
+ * REVISIONS: March 20th, 2016: Commented
  *
- * Player model
- *
- * @author				Jaegar Sarauer, Allen Tsang, Dhivya Manohar
- * @copyright			2016-, Special Characters
- * ------------------------------------------------------------------------
- */
-
-
+ * @programmer: Carson Roscoe
+ * 
+ * @designer: Carson Roscoe
+ * 
+ * NOTES: Model used for handling the Clients table of our database.
+ * ----------------------------------------------------------------------*/
 class Clients extends MY_Model {
     
     /**
@@ -22,10 +33,22 @@ class Clients extends MY_Model {
         parent::__construct('clientlogin','username');
     }
     
-    /**
-     * Get all players that are in the database
-     * @return array all players
-     */
+    /**-------------------------------------------------------------------
+     * METHOD: getClients
+     * 
+     * INTERFACE: queryResults getClients()
+     * 
+     * DATE: March 10th, 2016
+     * 
+     * REVISIONS: March 20th, 2016: Commented
+     *
+     * @programmer: Carson Roscoe
+     * 
+     * @designer: Carson Roscoe
+     * 
+     * NOTES: Returns an array of pairs, where the pair is an array
+     * of usernames and first+last name combos.
+     -------------------------------------------------------------------*/
     function getClients() {
         $res = $this->all();
         $newRes = array();
@@ -37,13 +60,44 @@ class Clients extends MY_Model {
         return $newRes;
     }
     
-    /**
-     * Get all player names by username
-     * @param type $username of player
-     * @return type array of all players
-     */
+    /**-------------------------------------------------------------------
+     * METHOD: getClientNamesByUsername
+     * 
+     * INTERFACE: queryResults getClientNamesByUsername(username)
+     * 
+     * DATE: March 10th, 2016
+     * 
+     * REVISIONS: March 20th, 2016: Commented
+     *
+     * @programmer: Carson Roscoe
+     * 
+     * @designer: Carson Roscoe
+     * 
+     * NOTES: Returns an array that contains a first and last name in
+     * string form based on the username passed in
+     -------------------------------------------------------------------*/
     function getClientNamesByUsername($username) {
         $res = $this->some('username', $username);
         return array($res[0]->firstname, $res[0]->lastname);
+    }
+    
+    /**-------------------------------------------------------------------
+     * METHOD: generateHexValueByName
+     * 
+     * INTERFACE: string generateHexValueByName(username)
+     * 
+     * DATE: March 10th, 2016
+     * 
+     * REVISIONS: March 20th, 2016: Commented
+     *
+     * @programmer: Carson Roscoe
+     * 
+     * @designer: Carson Roscoe
+     * 
+     * NOTES: Takes a username and turns it into a hex colour value
+     * that will be in the form "#FF00FF" for example.
+     -------------------------------------------------------------------*/
+    function generateHexValueByName($username) {
+        return '#'.substr(dechex(abs(crc32($username))), 0, 6);
     }
 }
