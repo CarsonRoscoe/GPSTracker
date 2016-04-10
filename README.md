@@ -6,3 +6,4 @@ GPSTracker is split into three componenets: The Java Android app, the C++ server
 
 This is the repo for the PHP Apache hosted Webapp.
 
+For the Android client & C++ server, see https://github.com/SpenserL/comp4985-gpstracker
