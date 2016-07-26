@@ -12,4 +12,6 @@ PHP Apache WebApp written using the CodeIgniter framework and GoogleMaps API. Th
 
 Java Android client application used for communicating your current GPS positions to the Java socket server. The app utilizes the TCP/IP protocol suite to send updates every few minutes, or every time you change locations.
 
-# Java Socket Server used to gather GPS coordinate updates from Android clients and store these updates in a SQL database that is accessible by the Apache WebApp.
+# Java Server 
+
+Java socket server used to gather GPS coordinate updates from Android clients and store these updates in a SQL database that is accessible by the Apache WebApp.
